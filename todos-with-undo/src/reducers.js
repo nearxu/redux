@@ -6,19 +6,15 @@ const todos = (state = [], action) => {
       return [
         ...state,
         {
-          id: action.id,
           text: action.text,
-          completed: action.completed
+          id: action.id,
+          completed: false
         }
       ];
     case "TOGGLE_TODO":
-      return state.map(m => {
-        if (m.id === action.id) {
-          return { ...m, completed: !m.completed };
-        } else {
-          return m;
-        }
-      });
+      return state.map(
+        m => (m.id === action.id ? { ...m, completed: !m.completed } : m)
+      );
     default:
       return state;
   }
@@ -37,5 +33,4 @@ const todoApp = combineReducers({
   todos,
   visibilityFilter
 });
-
 export default todoApp;
